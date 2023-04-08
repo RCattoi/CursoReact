@@ -12,10 +12,17 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start ",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "html",
+      "json"
+    ]
   },
   "eslintConfig": {
     "extends": [

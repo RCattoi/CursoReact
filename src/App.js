@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Product from './Product';
+import Button from './Button';
+// Quando o usuário clicar em um dos botões, faça um fetch do produto clicado utilizando a api abaixo
+// https://ranekapi.origamid.dev/json/api/produto/notebook
+// https://ranekapi.origamid.dev/json/api/produto/smartphone
+// Mostre o nome e preço na tela (separe essa informação em um componente Produto.js)
+// Defina o produto clicado como uma preferência do usuário no localStorage
+// Quando o usuário entrar no site, se existe um produto no localStorage, faça o fetch do mesmo
 
-function App() {
+const App = () => {
+  const [response, setResponse] = useState(null);
+  async function handleClick(event) {
+    const url = 'https://ranekapi.origamid.dev/json/api/produto/';
+    try {
+      const responsee = await fetch(url + event.target.innerText);
+      const respnseJson = await responsee.json();
+      setResponse(respnseJson);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button onClick={handleClick}>tablet</button>
+      <button onClick={handleClick} style={{ margin: '5px' }}>
+        smartphone
+      </button>
+      {response && <Product dados={response} />}
+    </>
   );
-}
+};
 
 export default App;
